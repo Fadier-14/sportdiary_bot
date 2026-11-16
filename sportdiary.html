@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+        html, body {
+            background: black;
+        }
         #zag {
             margin-top: 0;
         }
@@ -12,10 +15,55 @@
             font-size: 30px;
             text-align: left;
             font-weight: 400;
+            color: white;
         }
         #zag h2 {
             font-size: 16px;
             text-align: left;
+            color: #3a3a3c;
+        }
+        .floor {
+            background: #222222;
+            color: #3a3a3c;
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            right: 10px;
+            border: #222222 solid 1px;
+            border-radius: 15px;
+            display: flex;
+            font-size: 18px;
+        }
+        .active-btn-floor {
+            flex: 1;
+            text-align: center;
+            color: #6d28d9;
+            border: none;
+            outline: none;
+            background: none;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .active-btn-floor::after {
+        content: "";                 
+        position: absolute;          
+        bottom: 0;                   
+        left: 15%;                   
+        width: 70%;                
+        height: 3px;   
+        background-color: #6d28d9;
+        border-radius: 2px;
+        }
+        .btn-floor {
+            flex: 1;
+            text-align: center;
+            color: #3a3a3c;
+            border: none;
+            outline: none;
+            background: none;
+            position: relative;
+            padding-bottom: 8px;
+
         }
     </style>
     
@@ -25,6 +73,27 @@
         <h1>Привет!</h1>
         <h2>Готов к очередной тренировке?</h2>
     </div>
+    <div class="t_w">
+        <span>📅 Сегодняшняя тренировка</span>
+    </div>
+    <div class="floor">
+        <button class="active-btn-floor">🏠︎<br>Лобби</button>
+        <button class="btn-floor">🏋️<br>План тренировок</button>
+        <button class="btn-floor">📊<br>Статистика</button>
+    </div>
+    <script>
+        const floorContainer = document.querySelector(".floor");
+        floorContainer.addEventListener("click", function(event){
+            const btn_click = event.target.closest('button')
+            if (!btn_click) return
+            const oldActive = floorContainer.querySelector('.active-btn-floor');
+            if (oldActive) {
+                oldActive.classList.replace('active-btn-floor', 'btn-floor')
+                
+            }
+            btn_click.classList.replace('btn-floor', 'active-btn-floor')
+        })
+    </script>
     
 </body>
 
