@@ -78,10 +78,28 @@
             font-size: 12px;
 
         }
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .display_lobby {
+            visibility: visible;
+        }
+        .display_plan {
+            visibility: hidden;
+        }
+        .display_stat {
+            visibility: hidden;
+        }
+        .display_prof {
+            visibility: hidden;
+        }
     </style>
     
 </head>
 <body>
+    <div class="display_lobby" id="display_lobby1">
     <div id="zag">
         <h1>Привет!</h1>
         <h2>Готов к очередной тренировке?</h2>
@@ -89,11 +107,23 @@
     <div class="t_w">
         <span>📅 Сегодняшняя тренировка</span>
     </div>
+    </div>
+    <div class="display_plan" id="display_plan1">
+        <div class="calendar">
+
+        </div>
+    </div>
+    <div class="display_stat" id="display_stat1">
+
+    </div>
+    <div class="display_prof" id="display_prof1">
+
+    </div>
     <div class="floor">
-        <button class="active-btn-floor">🏠︎<br>Лобби</button>
-        <button class="btn-floor">🏋️<br>План тренировок</button>
-        <button class="btn-floor">📊<br>Статистика</button>
-        <button class="btn-floor">👤<br>Профиль</button>
+        <button class="active-btn-floor" id="lobby">🏠︎<br>Лобби</button>
+        <button class="btn-floor" id="plan">🏋️<br>План тренировок</button>
+        <button class="btn-floor" id="stat">📊<br>Статистика</button>
+        <button class="btn-floor" id="prof">👤<br>Профиль</button>
     </div>
     <script>
         const floorContainer = document.querySelector(".floor");
@@ -106,7 +136,43 @@
                 
             }
             btn_click.classList.replace('btn-floor', 'active-btn-floor')
+
+            const btn_id = btn_click.id;
+
+            if (btn_id == "lobby") {
+                document.getElementById("display_lobby1").style.visibility = "visible";
+                document.getElementById("display_plan1").style.visibility = "hidden";
+                document.getElementById("display_stat1").style.visibility = "hidden";
+                document.getElementById("display_prof1").style.visibility = "hidden";
+            }
+            else if (btn_id == "plan") {
+                document.getElementById("display_lobby1").style.visibility = "hidden";   
+                document.getElementById("display_plan1").style.visibility = "visible";
+                document.getElementById("display_stat1").style.visibility = "hidden";    
+                document.getElementById("display_prof1").style.visibility = "hidden";    
+            }
+            else if (btn_id == "stat") {
+                document.getElementById("display_lobby1").style.visibility = "hidden";  
+                document.getElementById("display_plan1").style.visibility = "hidden";
+                document.getElementById("display_stat1").style.visibility = "visible";   
+                document.getElementById("display_prof1").style.visibility = "hidden";   
+            }
+            else if (btn_id == "prof") {
+                document.getElementById("display_lobby1").style.visibility = "hidden";  
+                document.getElementById("display_plan1").style.visibility = "hidden";
+                document.getElementById("display_stat1").style.visibility = "hidden";   
+                document.getElementById("display_prof1").style.visibility = "visible";   
+            }
         })
+        const calendar = document.querySelector(".calendar")
+        const kolvo = new Date(2026, 11, 0).getDate()
+
+        for (let i = 1; i <= kolvo; i++) {
+            const button = document.createElement("button")
+            button.textContent = i
+
+        calendar.append(button);
+        }
     </script>
     
 </body>
