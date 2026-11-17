@@ -102,13 +102,31 @@
             border: 0px;
             font-size: 16px;
             aspect-ratio: 1;
+            font-weight: 700;
         }
         .day_ned {
-            color: #3a3a3c;
+            color: #4a4a4c;
             display: grid;
             grid-template-columns: repeat(7, 1fr);
             margin-top: 8px;
+            margin-bottom: 8px;
             text-align: center;
+            font-weight: 700;
+        }
+        .date {
+            display: flex;
+            text-align: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            color: white;
+
+        }
+        .date button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
         }
     </style>
     
@@ -124,6 +142,12 @@
     </div>
     </div>
     <div class="display_plan" id="display_plan1">
+        <div class="date">
+            <button id="mounth_left"><</button>
+            <div id="mounth">Ноябрь</div>
+            <div id="year">2026</div>
+            <button id="mounth_right">></button>
+        </div>
         <div class="day_ned">
                 <span>ПН</span>
                 <span>ВТ</span>
@@ -150,6 +174,7 @@
         <button class="btn-floor" id="prof">👤<br>Профиль</button>
     </div>
     <script>
+        
         const floorContainer = document.querySelector(".floor");
         floorContainer.addEventListener("click", function(event){
             const btn_click = event.target.closest('button')
@@ -210,6 +235,72 @@
 
         calendar.append(button);
         }
+        let mounth_num = 11
+        let year = 2026
+        const mounth = document.getElementById("mounth");
+        function updateMounth() {
+        if (mounth_num === 1) {
+            mounth.textContent = "Январь"
+        }
+        if (mounth_num === 2) {
+            mounth.textContent = "Февраль"
+        }
+        if (mounth_num === 3) {
+            mounth.textContent = "Март"
+        }
+        if (mounth_num === 4) {
+            mounth.textContent = "Аперель"
+        }
+        if (mounth_num === 5) {
+            mounth.textContent = "Май"
+        }
+        if (mounth_num === 6) {
+            mounth.textContent = "Июнь"
+        }
+        if (mounth_num === 7) {
+            mounth.textContent = "Июль"
+        }
+        if (mounth_num === 8) {
+            mounth.textContent = "Август"
+        }
+        if (mounth_num === 9) {
+            mounth.textContent = "Сентябрь"
+        }
+        if (mounth_num === 10) {
+            mounth.textContent = "Октябрь"
+        }
+        if (mounth_num === 11) {
+            mounth.textContent = "Ноябрь"
+        }
+        if (mounth_num === 12) {
+            mounth.textContent = "Декабрь"
+        }
+        document.getElementById("year").textContent = year
+        }
+        
+        
+        document.getElementById("mounth_right").onclick = function() {
+            if (mounth_num === 12) {
+                mounth_num = 1;
+                year += 1
+
+            }
+            
+            else {mounth_num += 1}
+            updateMounth()
+        }
+        document.getElementById("mounth_left").onclick = function() {
+            if (mounth_num === 1) {
+                mounth_num = 12;
+                year -= 1
+            }
+            else {mounth_num -= 1}
+
+            updateMounth()
+            
+        }
+        updateMounth()
+        
     </script>
     
 </body>
