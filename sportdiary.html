@@ -81,7 +81,7 @@
         .calendar {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
+            gap: 6px;
         }
         .display_lobby {
             visibility: visible;
@@ -94,6 +94,14 @@
         }
         .display_prof {
             visibility: hidden;
+        }
+        .day-btn {
+            background: #222222;
+            color: white;
+            border-radius: 5px;
+            border: 0px;
+            font-size: 12px;
+            aspect-ratio: 1;
         }
     </style>
     
@@ -170,6 +178,9 @@
         for (let i = 1; i <= kolvo; i++) {
             const button = document.createElement("button")
             button.textContent = i
+            button.className = "day-btn";
+            button.id = "day-" + i
+            
 
         calendar.append(button);
         }
