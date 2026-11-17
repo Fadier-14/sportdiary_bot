@@ -98,9 +98,9 @@
         .day-btn {
             background: #222222;
             color: white;
-            border-radius: 5px;
+            border-radius: 8px;
             border: 0px;
-            font-size: 12px;
+            font-size: 16px;
             aspect-ratio: 1;
         }
     </style>
@@ -174,6 +174,16 @@
         })
         const calendar = document.querySelector(".calendar")
         const kolvo = new Date(2026, 11, 0).getDate()
+        let StartDay = new Date(2026, 10, 1).getDay()
+        if (StartDay === 0) StartDay = 7
+        const pust = StartDay - 1
+
+        for (let m = 1; m <= pust; m++) {
+            const pust_div = document.createElement("div")
+            calendar.append(pust_div)
+        }
+
+        
 
         for (let i = 1; i <= kolvo; i++) {
             const button = document.createElement("button")
