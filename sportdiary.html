@@ -245,7 +245,7 @@
         const modal = document.querySelector(".modal")
         const calendarContainer = document.querySelector(".calendar")
         calendarContainer.addEventListener("click", function(event){
-            const day = event.target.closest(".day-bnt")
+            const day = event.target.closest(".day-btn")
             if (!day) return;
             modal.classList.add("show")
         })
