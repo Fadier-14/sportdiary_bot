@@ -213,28 +213,7 @@
                 document.getElementById("display_prof1").style.visibility = "visible";   
             }
         })
-        const calendar = document.querySelector(".calendar")
-        const kolvo = new Date(2026, 11, 0).getDate()
-        let StartDay = new Date(2026, 10, 1).getDay()
-        if (StartDay === 0) StartDay = 7
-        const pust = StartDay - 1
-
-        for (let m = 1; m <= pust; m++) {
-            const pust_div = document.createElement("div")
-            calendar.append(pust_div)
-        }
-
         
-
-        for (let i = 1; i <= kolvo; i++) {
-            const button = document.createElement("button")
-            button.textContent = i
-            button.className = "day-btn";
-            button.id = "day-" + i
-            
-
-        calendar.append(button);
-        }
         let mounth_num = 11
         let year = 2026
         const mounth = document.getElementById("mounth");
@@ -276,6 +255,29 @@
             mounth.textContent = "Декабрь"
         }
         document.getElementById("year").textContent = year
+
+        calendar.innerHTML = ""
+        const kolvo = new Date(year, mounth_num, 0).getDate();
+        let startDay = new Date(year, mounth_num - 1, 1).getDay();
+        if (startDay === 0) startDay = 7;
+        const pust = startDay - 1
+        for (let m = 1; m <= pust; m++) {
+            const pust_div = document.createElement("div")
+            calendar.append(pust_div)
+        }
+
+        
+
+        for (let i = 1; i <= kolvo; i++) {
+            const button = document.createElement("button")
+            button.textContent = i
+            button.className = "day-btn";
+            button.id = "day-" + i
+            
+
+        calendar.append(button);
+        }
+
         }
         
         
@@ -285,8 +287,10 @@
                 year += 1
 
             }
+        
             
             else {mounth_num += 1}
+            
             updateMounth()
         }
         document.getElementById("mounth_left").onclick = function() {
@@ -295,6 +299,8 @@
                 year -= 1
             }
             else {mounth_num -= 1}
+
+            
 
             updateMounth()
             
