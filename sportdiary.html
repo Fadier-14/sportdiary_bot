@@ -190,6 +190,26 @@
     width: 100%;
     margin-top: 16px;
 }
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0 14px;
+    background: #2c2c2e;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.modal-content span {
+    display: block;
+    margin-top: 8px;
+    font-size: 14px;
+    color: #8e8e93;
+}
     </style>
     
 </head>
@@ -238,7 +258,18 @@
     <div class="modal" id="modal">
         <div class="modal-content">
             <span id="add_tr">Добавить тренировку</span>
-            <button id="modal-closest">закрыть</button>
+            <span>тип тренировки</span>
+            <select id="type_tr">
+                <option>Зал</option>
+                <option>Спорт</option>
+            </select>
+            <span>Название</span>
+            <input type="text" id="name_tr" placeholder="Название тренировки">
+            <span>Время</span>
+            <input type="time" id="time_tr" placeholder="Время начала тренировки">
+            <span>Упражнения</span>
+            <input type="text" placeholder="Упражнения">
+            <button id="modal-closest">отмена</button>
         </div>
     </div>
     <script>
@@ -249,7 +280,7 @@
             if (!day) return;
             modal.classList.add("show")
             const id_day = day.id;
-            document.getElementById("add_tr").textContent = "Добавить тренировку" + id_day
+            document.getElementById("add_tr").textContent = "Добавить тренировку" + " " + id_day
         })
         document.getElementById("modal-closest").onclick = function() {
             modal.classList.remove("show")
@@ -352,7 +383,7 @@
             const button = document.createElement("button")
             button.textContent = i
             button.className = "day-btn";
-            button.id = "day-" + i + "-" + mounth_num + "-" + year
+            button.id = i + "-" + mounth_num + "-" + year
             
 
         calendar.append(button);
