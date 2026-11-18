@@ -210,6 +210,11 @@
     font-size: 14px;
     color: #8e8e93;
 }
+#add_tr {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
     </style>
     
 </head>
@@ -260,11 +265,14 @@
             <span id="add_tr">Добавить тренировку</span>
             <span>тип тренировки</span>
             <select id="type_tr">
-                <option>Зал</option>
-                <option>Спорт</option>
+                <option value="none">Пусто</option>
+                <option value="gym">Зал</option>
+                <option value="sport">Спорт</option>
             </select>
             <span>Название</span>
-            <input type="text" id="name_tr" placeholder="Название тренировки">
+            <select id="name_tr">
+
+            </select>
             <span>Время</span>
             <input type="time" id="time_tr" placeholder="Время начала тренировки">
             <span>Упражнения</span>
@@ -273,6 +281,36 @@
         </div>
     </div>
     <script>
+        function name_tr_select() {
+            const selected = document.getElementById("type_tr").value;
+            const nameSelect = document.getElementById("name_tr")
+        const select_gym = ["День ног", "День рук", "День спины", "День груди"]
+        const select_sport = ["Футбол", "Баскетбол", "Бег", "Плавание"]
+                nameSelect.innerHTML = ""
+                if (selected === "gym") {
+                    select_gym.forEach(function(name) {
+                const option = document.createElement("option")
+                option.textContent = name
+                nameSelect.append(option)
+            })
+                    
+                }
+                if (selected === "sport") {
+                    select_sport.forEach(function(name) {
+                        const option = document.createElement("option")
+                        option.textContent = name
+                        nameSelect.append(option)
+                    })
+                }
+            }
+            
+        document.getElementById("type_tr").addEventListener("change", function(){
+            
+            
+            
+            name_tr_select()
+            
+        })
         const modal = document.querySelector(".modal")
         const calendarContainer = document.querySelector(".calendar")
         calendarContainer.addEventListener("click", function(event){
@@ -417,6 +455,7 @@
             
         }
         updateMounth()
+        name_tr_select()
         
     </script>
     
