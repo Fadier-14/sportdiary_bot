@@ -215,6 +215,57 @@
     font-weight: 700;
     color: white;
 }
+
+.add_uprach {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.65);
+    z-index: 1100; /* выше основного модального окна */
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.add_uprach.show {
+    display: flex;
+}
+
+.add_uprach_content {
+    background: #1c1c1e;
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px 20px 0 0;
+    box-sizing: border-box;
+    animation: slideUp 0.3s ease;
+}
+
+.add_uprach_content input,
+.add_uprach_content select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #2c2c2e;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+#add_u {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}   
     </style>
     
 </head>
@@ -276,11 +327,56 @@
             <span>Время</span>
             <input type="time" id="time_tr" placeholder="Время начала тренировки">
             <span>Упражнения</span>
-            <input type="text" placeholder="Упражнения">
+            <button type="button" id="add_upr">+ добавить упражнение</button>
+            <div id="upr_list"></div>
             <button id="modal-closest">отмена</button>
         </div>
     </div>
+    <div class="add_uprach" id="add_uprach">
+        <div class="add_uprach_content">
+            <input type="text" id="upr_name" placeholder="название упражнения">
+            <select id="podhod">
+                
+            </select>
+            <select id="povtor">
+
+            </select>
+            <button id="add_u">Добавить</button>
+        </div>
+    </div>
     <script>
+        document.getElementById("add_upr").onclick = function() {
+            document.getElementById("add_uprach").classList.add("show")
+        }
+        for (o = 1; o <= 100; o++) {
+            const podhod_select = document.getElementById("podhod")
+            const podhod_option = document.createElement("option")
+            podhod_option.textContent = o
+            podhod_select.append(podhod_option)
+
+        }
+        for (o = 1; o <= 100; o++) {
+            const povtor_select = document.getElementById("povtor")
+            const povtor_option = document.createElement("option")
+            povtor_option.textContent = o
+            povtor_select.append(povtor_option)
+
+        }
+        document.getElementById("add_u").onclick = function() {
+            const upr_list = document.getElementById("upr_list")
+            const name = document.getElementById("upr_name").value
+            const sets = document.getElementById("podhod").value
+            const reps = document.getElementById("povtor").value
+
+            if (!name) return;
+
+            const list = document.createElement("div")
+            list.textContent = name + "-" + sets + "x" + reps
+            document.getElementById("upr_list").append(list)
+            document.getElementById("upr_name").value = ""
+            document.getElementById("add_uprach").classList.remove("show")
+
+        }
         function name_tr_select() {
             const selected = document.getElementById("type_tr").value;
             const nameSelect = document.getElementById("name_tr")
@@ -322,6 +418,7 @@
         })
         document.getElementById("modal-closest").onclick = function() {
             modal.classList.remove("show")
+            document.getElementById("upr_list").innerHTML = ""
         }
         const floorContainer = document.querySelector(".floor");
         floorContainer.addEventListener("click", function(event){
