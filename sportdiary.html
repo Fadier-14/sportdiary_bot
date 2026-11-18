@@ -237,7 +237,7 @@
     </div>
     <div class="modal" id="modal">
         <div class="modal-content">
-            <h3>Добавить тренировку</h3>
+            <span id="add_tr">Добавить тренировку</span>
             <button id="modal-closest">закрыть</button>
         </div>
     </div>
@@ -248,6 +248,8 @@
             const day = event.target.closest(".day-btn")
             if (!day) return;
             modal.classList.add("show")
+            const id_day = day.id;
+            document.getElementById("add_tr").textContent = "Добавить тренировку" + id_day
         })
         document.getElementById("modal-closest").onclick = function() {
             modal.classList.remove("show")
@@ -350,7 +352,7 @@
             const button = document.createElement("button")
             button.textContent = i
             button.className = "day-btn";
-            button.id = "day-" + i
+            button.id = "day-" + i + "-" + mounth_num + "-" + year
             
 
         calendar.append(button);
