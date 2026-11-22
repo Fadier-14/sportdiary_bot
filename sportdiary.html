@@ -246,6 +246,23 @@
     background: #7c3aed;
     color: white;
 }
+#modal_saves {
+    width: 100%;
+    padding: 16px;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 12px;
+    margin-bottom: 8px;
+}
+
+#modal_saves:active {
+    background: #6d28d9;
+}
     </style>
     
 </head>
@@ -420,7 +437,9 @@
             data: data
         })
     });
-}}
+}
+SendPass();
+}
         document.getElementById("modal-closest").onclick = function() {
             modal.classList.remove("show")
             document.getElementById("upr_list").innerHTML = ""
@@ -558,7 +577,7 @@
         }
         updateMounth()
         name_tr_select()
-        SendPass()
+        
         
     </script>
     
