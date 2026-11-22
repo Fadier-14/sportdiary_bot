@@ -422,6 +422,7 @@
             const name = document.getElementById("name_tr").value
             const time = document.getElementById("time_tr").value
             const data = id_day
+            const exercises = document.getElementById("upr_list").innerText
             
             const API = "https://unroll-drivable-majorette.ngrok-free.dev";
             async function SendPass() {
@@ -435,7 +436,8 @@
             type: type,
             name: name,
             time: time,
-            data: data
+            data: data,
+            exercises: exercises
         })
     });
 }
@@ -545,7 +547,7 @@ modal.classList.remove("show")
             const button = document.createElement("button")
             button.textContent = i
             button.className = "day-btn";
-            button.id = i + "-" + mounth_num + "-" + year
+            button.id = i + " " + mounth_num + " " + year
             
 
         calendar.append(button);
