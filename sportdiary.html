@@ -309,6 +309,7 @@
             <span>Упражнения</span>
             <button type="button" id="add_upr">+ добавить упражнение</button>
             <div id="upr_list"></div>
+            <button id="modal_saves">сохранить</button>
             <button id="modal-closest">отмена</button>
         </div>
     </div>
@@ -327,6 +328,7 @@
         </div>
     </div>
     <script>
+        let id_day = ""
         document.getElementById("add_upr").onclick = function() {
             document.getElementById("add_uprach").classList.add("show")
         }
@@ -395,9 +397,30 @@
             const day = event.target.closest(".day-btn")
             if (!day) return;
             modal.classList.add("show")
-            const id_day = day.id;
+            id_day = day.id;
             document.getElementById("add_tr").textContent = "Добавить тренировку" + " " + id_day
         })
+        document.getElementById("modal_saves").onclick = function() {
+            const type = document.getElementById("type_tr").value
+            const name = document.getElementById("name_tr").value
+            const time = document.getElementById("time_tr").value
+            const data = id_day
+            
+            const API = "https://unroll-drivable-majorette.ngrok-free.dev";
+            async function SendPass() {
+    if (!tg || !tg.initData) return;
+    const res = await fetch(API + "/add_tr", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            initData: tg.initData,
+            type: type,
+            name: name,
+            time: time,
+            data: data
+        })
+    });
+}}
         document.getElementById("modal-closest").onclick = function() {
             modal.classList.remove("show")
             document.getElementById("upr_list").innerHTML = ""
@@ -535,6 +558,7 @@
         }
         updateMounth()
         name_tr_select()
+        SendPass()
         
     </script>
     
