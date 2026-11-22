@@ -425,6 +425,7 @@
             
             const API = "https://unroll-drivable-majorette.ngrok-free.dev";
             async function SendPass() {
+                const tg = window.Telegram && window.Telegram.WebApp;
     if (!tg || !tg.initData) return;
     const res = await fetch(API + "/add_tr", {
         method: "POST",
