@@ -463,11 +463,11 @@
             document.getElementById("add_tr").textContent = "Добавить тренировку" + " " + id_day
         })
         document.getElementById("modal_saves").onclick = function() {
-            const type = document.getElementById("type_tr").value
-            const name = document.getElementById("name_tr").value
-            const time = document.getElementById("time_tr").value
-            const date = id_day
-            const exercises = document.getElementById("upr_list").innerText
+            const type_train = document.getElementById("type_tr").value
+            const name_train = document.getElementById("name_tr").value
+            const time_train = document.getElementById("time_tr").value
+            const date_train = id_day
+            const exercises_train = document.getElementById("upr_list").innerText
             
             const API = "https://unroll-drivable-majorette.ngrok-free.dev";
             async function SendPass() {
@@ -478,11 +478,11 @@
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
             initData: tg.initData,
-            type: type,
-            name: name,
-            time: time,
-            data: date,
-            exercises: exercises
+            type: type_train,
+            name: name_train,
+            time: time_train,
+            data: date_train,
+            exercises: exercises_train
         })
     });
     const data = await res.json();
