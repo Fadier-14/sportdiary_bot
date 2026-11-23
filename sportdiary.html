@@ -114,6 +114,7 @@
 
 .day-btn {
     background: #1c1c1e;
+    position: relative;
     color: white;
     border: none;
     border-radius: 16px;
@@ -122,6 +123,23 @@
     aspect-ratio: 1;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+.dot {
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #6d28d9;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.day-btn.show .dot {
+  opacity: 1;
 }
 
 .day-btn:active {
@@ -346,6 +364,33 @@
     </div>
     <script>
         let id_day = ""
+        const API = "https://unroll-drivable-majorette.ngrok-free.dev";
+        const tg = window.Telegram && window.Telegram.WebApp;
+        async function tr_show() {
+            if (!tg || !tg.initData) return;
+            const res2 = await fetch(API + "/show_tr", {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ initData: tg.initData})
+            })
+            const data2 = await res2.json();
+            if (data2.ok) {
+                const tr_ids = data2.traing
+                for (i = 0; i < tr_ids.length ; i++) {
+                    const tr_id = document.getElementById(tr_ids[i])
+                    if (tr_id) {
+                        tr_id.classList.add("show")
+                    }
+                }
+            }
+        }
+        
+        if (tg) {
+            tg.ready();
+            tr_show()
+
+
+        }
         document.getElementById("add_upr").onclick = function() {
             document.getElementById("add_uprach").classList.add("show")
         }
@@ -440,10 +485,16 @@
             exercises: exercises
         })
     });
+    const data = await res.json();
+    if (data.ok) {
+        modal.classList.remove("show")
+        document.getElementById("upr_list").innerHTML = ""
+        tr_show()
+    }
 }
+
 SendPass();
-modal.classList.remove("show")
-            document.getElementById("upr_list").innerHTML = ""
+
 }
         document.getElementById("modal-closest").onclick = function() {
             modal.classList.remove("show")
@@ -548,7 +599,9 @@ modal.classList.remove("show")
             button.textContent = i
             button.className = "day-btn";
             button.id = i + " " + mounth_num + " " + year
-            
+            const dot = document.createElement("span")
+            dot.className = "dot";
+            button.append(dot)
 
         calendar.append(button);
         }
@@ -567,6 +620,7 @@ modal.classList.remove("show")
             else {mounth_num += 1}
             
             updateMounth()
+            tr_show()
         }
         document.getElementById("mounth_left").onclick = function() {
             if (mounth_num === 1) {
@@ -578,6 +632,7 @@ modal.classList.remove("show")
             
 
             updateMounth()
+            tr_show()
             
         }
         updateMounth()
