@@ -126,20 +126,20 @@
 }
 
 .dot {
-  position: absolute;
-  bottom: 4px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: #6d28d9;
-  opacity: 0;
-  transition: opacity 0.2s;
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #6d28d9;
+    opacity: 0;
+    transition: opacity 0.2s;
 }
 
 .day-btn.show .dot {
-  opacity: 1;
+    opacity: 1;
 }
 
 .day-btn:active {
@@ -162,7 +162,9 @@
     position: relative;
 }
 
-.modal, .add_uprach {
+.modal,
+.modal_add_treing,
+.add_uprach {
     display: none;
     position: fixed;
     inset: 0;
@@ -174,11 +176,14 @@
 
 .add_uprach { z-index: 1100; }
 
-.modal.show, .add_uprach.show {
+.modal.show,
+.modal_add_treing.show,
+.add_uprach.show {
     display: flex;
 }
 
-.modal-content, .add_uprach_content {
+.modal-content,
+.add_uprach_content {
     background: #1c1c1e;
     width: 100%;
     max-height: 85vh;
@@ -187,6 +192,15 @@
     box-sizing: border-box;
     animation: slideUp 0.35s cubic-bezier(0.32, 0.72, 0, 1);
     overflow-y: auto;
+}
+
+.modal-simple {
+    max-width: 340px;
+    margin: 0 auto 20px;
+    padding: 20px;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
 }
 
 @keyframes slideUp {
@@ -201,7 +215,8 @@
     margin-bottom: 16px;
 }
 
-.modal-content span, .add_uprach_content span {
+.modal-content span,
+.add_uprach_content span {
     display: block;
     margin: 14px 0 6px;
     font-size: 13px;
@@ -244,7 +259,11 @@
     font-size: 15px;
 }
 
-#modal-closest, #add_u {
+#modal-closest,
+#modal-closest_add_treing,
+#add_u,
+#modal_saves,
+#add_treing {
     width: 100%;
     padding: 16px;
     border: none;
@@ -252,62 +271,34 @@
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+}
+
+#modal-closest,
+#modal-closest_add_treing {
+    background: #2c2c2e;
+    color: white;
     margin-top: 8px;
 }
 
-#modal-closest, #modal-closest_add_treing {
-    background: #2c2c2e;
+#modal-closest:active,
+#modal-closest_add_treing:active {
+    background: #3a3a3c;
+}
+
+#add_u,
+#modal_saves,
+#add_treing {
+    background: #7c3aed;
     color: white;
 }
 
-#add_u {
-    background: #7c3aed;
-    color: white;
-}
 #modal_saves {
-    width: 100%;
-    padding: 16px;
-    background: #7c3aed;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
     margin-top: 12px;
     margin-bottom: 8px;
 }
 
-#modal_saves:active {
-    background: #6d28d9;
-}
-.modal_add_treing {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.modal_add_treing.show {
-    display: flex;
-}
-#add_treing {
-    width: 100%;
-    max-width: 320px;
-    padding: 16px;
-    background: #7c3aed;
-    color: white;
-    border: none;
-    border-radius: 14px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    margin: auto 20px 40px;
-}
-
+#add_u:active,
+#modal_saves:active,
 #add_treing:active {
     background: #6d28d9;
 }
@@ -357,8 +348,10 @@
         <button class="btn-floor" id="prof">👤<br>Профиль</button>
     </div>
     <div class="modal" id="modal">
-        <button id="add_treing">Добавить тренировку</button>
-        <button id="modal-closest">Закрыть</button>
+        <div class="modal-content modal-simple">
+            <button id="add_treing">Добавить тренировку</button>
+            <button id="modal-closest">Закрыть</button>
+        </div>
     </div>
     <div class="modal_add_treing" id="modal_add_treing">
         <div class="modal-content">
