@@ -327,6 +327,9 @@
         <button class="btn-floor" id="prof">👤<br>Профиль</button>
     </div>
     <div class="modal" id="modal">
+        <button id="add_treing">Добавить тренировку</button>
+    </div>
+    <div class="modal_add_treing" id="modal_add_treing">
         <div class="modal-content">
             <span id="add_tr">Добавить тренировку</span>
             <span>тип тренировки</span>
@@ -363,6 +366,12 @@
         </div>
     </div>
     <script>
+        document.getElementById("add_treing").onclick = function() {
+        const modal_add_treing = document.querySelector(".modal_add_treing")
+        const modal = document.querySelector(".modal")
+        modal_add_treing.classList.add("show")
+        modal.classList.remove("show")
+        }
         let id_day = ""
         const API = "https://unroll-drivable-majorette.ngrok-free.dev";
         const tg = window.Telegram && window.Telegram.WebApp;
@@ -453,6 +462,7 @@
             name_tr_select()
             
         })
+        const modal_add_treing = document.querySelector(".modal_add_treing")
         const modal = document.querySelector(".modal")
         const calendarContainer = document.querySelector(".calendar")
         calendarContainer.addEventListener("click", function(event){
@@ -487,7 +497,7 @@
     });
     const data = await res.json();
     if (data.ok) {
-        modal.classList.remove("show")
+        modal_add_treing.classList.remove("show")
         document.getElementById("upr_list").innerHTML = ""
         tr_show()
     }
@@ -497,7 +507,7 @@ SendPass();
 
 }
         document.getElementById("modal-closest").onclick = function() {
-            modal.classList.remove("show")
+            modal_add_treing.classList.remove("show")
             document.getElementById("upr_list").innerHTML = ""
         }
         const floorContainer = document.querySelector(".floor");
