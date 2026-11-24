@@ -302,6 +302,33 @@
 #add_treing:active {
     background: #6d28d9;
 }
+#traing_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 8px 0 16px;
+}
+
+#traing_list > div {
+    background: #2c2c2e;
+    border-radius: 16px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+#traing_list span {
+    font-size: 14px;
+    color: #e5e5ea;
+    line-height: 1.4;
+}
+
+#traing_list span:first-child {
+    font-weight: 600;
+    color: #a78bfa;
+    font-size: 15px;
+}
     </style>
     
 </head>
@@ -349,6 +376,10 @@
     </div>
     <div class="modal" id="modal">
         <div class="modal-content modal-simple">
+            <span id="day-bnt-data"></span>
+            <div id="traing_list">
+                
+            </div>
             <button id="add_treing">Добавить тренировку</button>
             <button id="modal-closest">Закрыть</button>
         </div>
@@ -392,14 +423,53 @@
     <script>
         const modal_add_treing = document.querySelector(".modal_add_treing")
         const modal = document.querySelector(".modal")
+        const API = "https://unroll-drivable-majorette.ngrok-free.dev"
+        const tg = window.Telegram && window.Telegram.WebApp;
         document.getElementById("add_treing").onclick = function() {
         
         modal_add_treing.classList.add("show")
         modal.classList.remove("show")
         }
         let id_day = ""
-        const API = "https://unroll-drivable-majorette.ngrok-free.dev";
-        const tg = window.Telegram && window.Telegram.WebApp;
+        
+        async function day_btn_inf(dayID) {
+    if (!tg || !tg.initData) return;
+
+    const res3 = await fetch(API + "/day_btn_inf", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            initData: tg.initData,
+            data: dayID
+        })
+    });
+    document.getElementById("day-bnt-data").textContent = dayID
+    const data3 = await res3.json();
+    const traing_list = document.getElementById("traing_list")
+    if (data3.ok) {
+        traing_list.innerHTML = ""
+        for (let i = 0; i < data3.traing_info.length; i++) {
+
+            const treing = document.createElement("div")
+        const span = document.createElement("span")
+        span.textContent = "Тип тренировки:" + data3.traing_info[i].type
+        const span2 = document.createElement("span")
+        span2.textContent = "Название:" + data3.traing_info[i].name
+        const span3 = document.createElement("span")
+        span3.textContent = "Время:" + data3.traing_info[i].time
+        const span4 = document.createElement("span")
+        span4.textContent = "Упражнения:" + data3.traing_info[i].exercise
+        
+        treing.append(span)
+        treing.append(span2)
+        treing.append(span3)
+        treing.append(span4)
+        traing_list.append(treing)
+        }
+        
+
+    }
+}
         async function tr_show() {
             if (!tg || !tg.initData) return;
             const res2 = await fetch(API + "/show_tr", {
@@ -495,7 +565,11 @@
             if (!day) return;
             modal.classList.add("show")
             id_day = day.id;
+
+            
+            day_btn_inf(id_day)
             document.getElementById("add_tr").textContent = "Добавить тренировку" + " " + id_day
+
         })
         document.getElementById("modal_saves").onclick = function() {
             const type_train = document.getElementById("type_tr").value
@@ -504,9 +578,9 @@
             const date_train = id_day
             const exercises_train = document.getElementById("upr_list").innerText
             
-            const API = "https://unroll-drivable-majorette.ngrok-free.dev";
+            
             async function SendPass() {
-                const tg = window.Telegram && window.Telegram.WebApp;
+                
     if (!tg || !tg.initData) return;
     const res = await fetch(API + "/add_tr", {
         method: "POST",
@@ -528,7 +602,9 @@
     }
 }
 
+
 SendPass();
+
 
 }
         document.getElementById("modal-closest").onclick = function() {
