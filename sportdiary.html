@@ -390,8 +390,8 @@
             <span>тип тренировки</span>
             <select id="type_tr">
                 <option value="none">Пусто</option>
-                <option value="gym">Зал</option>
-                <option value="sport">Спорт</option>
+                <option value="Спортзал">Зал</option>
+                <option value="Спорт">Спорт</option>
             </select>
             <span>Название</span>
             <select id="name_tr">
@@ -452,13 +452,13 @@
 
             const treing = document.createElement("div")
         const span = document.createElement("span")
-        span.textContent = "Тип тренировки:" + data3.traing_info[i].type
+        span.textContent = "Тип тренировки:" + " " + data3.traing_info[i].type
         const span2 = document.createElement("span")
-        span2.textContent = "Название:" + data3.traing_info[i].name
+        span2.textContent = "Название:" + " " +data3.traing_info[i].name
         const span3 = document.createElement("span")
-        span3.textContent = "Время:" + data3.traing_info[i].time
+        span3.textContent = "Время:" + " " + data3.traing_info[i].time
         const span4 = document.createElement("span")
-        span4.textContent = "Упражнения:" + data3.traing_info[i].exercise
+        span4.textContent = "Упражнения:" + " " +data3.traing_info[i].exercise
         
         treing.append(span)
         treing.append(span2)
