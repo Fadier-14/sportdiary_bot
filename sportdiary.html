@@ -533,7 +533,7 @@
         const select_gym = ["День ног", "День рук", "День спины", "День груди"]
         const select_sport = ["Футбол", "Баскетбол", "Бег", "Плавание"]
                 nameSelect.innerHTML = ""
-                if (selected === "gym") {
+                if (selected === "Спортзал") {
                     select_gym.forEach(function(name) {
                 const option = document.createElement("option")
                 option.textContent = name
@@ -541,7 +541,7 @@
             })
                     
                 }
-                if (selected === "sport") {
+                if (selected === "Спорт") {
                     select_sport.forEach(function(name) {
                         const option = document.createElement("option")
                         option.textContent = name
