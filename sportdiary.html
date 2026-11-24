@@ -329,6 +329,41 @@
     color: #a78bfa;
     font-size: 15px;
 }
+.change {
+    display: none;
+    position: absolute;
+    background: #2c2c2e;
+    border-radius: 16px;
+    padding: 8px;
+    gap: 6px;
+    z-index: 200;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    flex-direction: column;
+    min-width: 140px;
+}
+
+.change.show {
+    display: flex;
+}
+
+.change button {
+    background: #3a3a3c;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.change button:active {
+    background: #48484a;
+}
+
+#delete_treing {
+    color: #ff453a;
+}
     </style>
     
 </head>
@@ -420,11 +455,22 @@
             <button id="add_u">Добавить</button>
         </div>
     </div>
+    <div id="change" class="change">
+        <button id="delete_treing">Удалить</button>
+        <button id="change_treing">Изменить</button>
+        <button id="cancellation">Отмена</button>
+    </div>
+    
     <script>
         const modal_add_treing = document.querySelector(".modal_add_treing")
         const modal = document.querySelector(".modal")
         const API = "https://unroll-drivable-majorette.ngrok-free.dev"
         const tg = window.Telegram && window.Telegram.WebApp;
+        let selectedTrainingId = null;
+        document.getElementById("cancellation").onclick = function() {
+    document.getElementById("change").classList.remove("show");
+};
+
         document.getElementById("add_treing").onclick = function() {
         
         modal_add_treing.classList.add("show")
@@ -451,6 +497,7 @@
         for (let i = 0; i < data3.traing_info.length; i++) {
 
             const treing = document.createElement("div")
+            treing.className = "treing_on_day"
         const span = document.createElement("span")
         span.textContent = "Тип тренировки:" + " " + data3.traing_info[i].type
         const span2 = document.createElement("span")
@@ -458,7 +505,9 @@
         const span3 = document.createElement("span")
         span3.textContent = "Время:" + " " + data3.traing_info[i].time
         const span4 = document.createElement("span")
-        span4.textContent = "Упражнения:" + " " +data3.traing_info[i].exercise
+        span4.textContent = "Упражнения:" + " " + data3.traing_info[i].exercise
+        const id_treing = data3.traing_info[i].id_treing
+        treing.dataset.id = id_treing
         
         treing.append(span)
         treing.append(span2)
@@ -469,6 +518,37 @@
         
 
     }
+}
+const treing_on_day = document.getElementById("traing_list")
+const change_container = document.querySelector(".change")
+const changeMenu = document.getElementById("change")
+treing_on_day.addEventListener("click", function(event) {
+    const treing_on_day_click = event.target.closest(".treing_on_day")
+    if (!treing_on_day_click) return
+    
+    selectedTrainingId = treing_on_day_click.dataset.id;
+
+    const rect = treing_on_day_click.getBoundingClientRect();
+    changeMenu.style.top = (rect.top + rect.height / 2 - 40) + "px";
+    changeMenu.style.left = (rect.left + rect.width / 2 - 70) + "px";
+
+    changeMenu.classList.add("show");
+})
+document.getElementById("delete_treing").onclick = async function delete_treing() {
+        if (!tg || !tg.initData) return;
+        const res4 = await fetch(API + "/delete_treing", {
+            method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({ initData: tg.initData,
+                treing_id: selectedTrainingId
+                })
+                
+        })
+        const data4 = await res4.json()
+        if (data4.ok) {
+            document.getElementById("change").classList.remove("show");
+            day_btn_inf(id_day);
+        }
 }
         async function tr_show() {
             if (!tg || !tg.initData) return;
