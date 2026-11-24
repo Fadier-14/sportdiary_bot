@@ -281,6 +281,36 @@
 #modal_saves:active {
     background: #6d28d9;
 }
+.modal_add_treing {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.modal_add_treing.show {
+    display: flex;
+}
+#add_treing {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px;
+    background: #7c3aed;
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: auto 20px 40px;
+}
+
+#add_treing:active {
+    background: #6d28d9;
+}
     </style>
     
 </head>
@@ -366,9 +396,10 @@
         </div>
     </div>
     <script>
-        document.getElementById("add_treing").onclick = function() {
         const modal_add_treing = document.querySelector(".modal_add_treing")
         const modal = document.querySelector(".modal")
+        document.getElementById("add_treing").onclick = function() {
+        
         modal_add_treing.classList.add("show")
         modal.classList.remove("show")
         }
@@ -462,8 +493,8 @@
             name_tr_select()
             
         })
-        const modal_add_treing = document.querySelector(".modal_add_treing")
-        const modal = document.querySelector(".modal")
+        
+        
         const calendarContainer = document.querySelector(".calendar")
         calendarContainer.addEventListener("click", function(event){
             const day = event.target.closest(".day-btn")
@@ -564,7 +595,7 @@ SendPass();
             mounth.textContent = "Март"
         }
         if (mounth_num === 4) {
-            mounth.textContent = "Аперель"
+            mounth.textContent = "Апрель"
         }
         if (mounth_num === 5) {
             mounth.textContent = "Май"
