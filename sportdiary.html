@@ -255,7 +255,7 @@
     margin-top: 8px;
 }
 
-#modal-closest {
+#modal-closest, #modal-closest_add_treing {
     background: #2c2c2e;
     color: white;
 }
@@ -358,6 +358,7 @@
     </div>
     <div class="modal" id="modal">
         <button id="add_treing">Добавить тренировку</button>
+        <button id="modal-closest">Закрыть</button>
     </div>
     <div class="modal_add_treing" id="modal_add_treing">
         <div class="modal-content">
@@ -378,7 +379,7 @@
             <button type="button" id="add_upr">+ добавить упражнение</button>
             <div id="upr_list"></div>
             <button id="modal_saves">сохранить</button>
-            <button id="modal-closest">отмена</button>
+            <button id="modal-closest_add_treing">отмена</button>
         </div>
     </div>
     <div class="add_uprach" id="add_uprach">
@@ -538,6 +539,10 @@ SendPass();
 
 }
         document.getElementById("modal-closest").onclick = function() {
+            modal.classList.remove("show")
+            
+        }
+        document.getElementById("modal-closest_add_treing").onclick = function() {
             modal_add_treing.classList.remove("show")
             document.getElementById("upr_list").innerHTML = ""
         }
