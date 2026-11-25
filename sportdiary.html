@@ -462,6 +462,7 @@
     </div>
     
     <script>
+        let currentDayTrainings = []
         let isediting = false
         const modal_add_treing = document.querySelector(".modal_add_treing")
         const modal = document.querySelector(".modal")
@@ -496,6 +497,7 @@
     const data3 = await res3.json();
     const traing_list = document.getElementById("traing_list")
     if (data3.ok) {
+        currentDayTrainings = data3.traing_info
         traing_list.innerHTML = ""
         for (let i = 0; i < data3.traing_info.length; i++) {
 
@@ -574,12 +576,19 @@ document.getElementById("delete_treing").onclick = async function delete_treing(
 document.getElementById("change_treing").onclick = async function change_treing() {
     if (!tg || !tg.initData) return;
     isediting = true
-    
+    const training = currentDayTrainings.find(t => t.id_treing == selectedTrainingId)
+
+
     changeMenu.classList.remove("show");
     modal_add_treing.classList.add("show");
     document.getElementById("modal_saves").textContent = "Изменить"
     
-    
+    if (training) {
+        document.getElementById("type_tr").value = training.type
+        document.getElementById("name_tr").value = training.name
+        document.getElementById("time_tr").value = training.time
+        document.getElementById("upr_list").innerHTML = "<div>" + training.exercise + "</div>"
+    }
 
 }
         
@@ -706,12 +715,13 @@ if (isediting) {
             type: type_train,
             name: name_train,
             time: time_train,
-            data: date_train,
             exercises: exercises_train
         })
     });
     data5 = await res5.json()
     if (data5.ok) {
+        
+
         modal_add_treing.classList.remove("show");
         day_btn_inf(id_day)
     }
