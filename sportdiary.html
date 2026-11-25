@@ -462,6 +462,7 @@
     </div>
     
     <script>
+        let isediting = false
         const modal_add_treing = document.querySelector(".modal_add_treing")
         const modal = document.querySelector(".modal")
         const API = "https://unroll-drivable-majorette.ngrok-free.dev"
@@ -474,6 +475,8 @@
         document.getElementById("add_treing").onclick = function() {
         
         modal_add_treing.classList.add("show")
+        document.getElementById("modal_saves").textContent = "Сохранить"
+        isediting = false
         modal.classList.remove("show")
         }
         let id_day = ""
@@ -501,7 +504,7 @@
         const span = document.createElement("span")
         span.textContent = "Тип тренировки:" + " " + data3.traing_info[i].type
         const span2 = document.createElement("span")
-        span2.textContent = "Название:" + " " +data3.traing_info[i].name
+        span2.textContent = "Название:" + " " + data3.traing_info[i].name
         const span3 = document.createElement("span")
         span3.textContent = "Время:" + " " + data3.traing_info[i].time
         const span4 = document.createElement("span")
@@ -568,6 +571,17 @@ document.getElementById("delete_treing").onclick = async function delete_treing(
                 }
             }
         }
+document.getElementById("change_treing").onclick = async function change_treing() {
+    if (!tg || !tg.initData) return;
+    isediting = true
+    
+    changeMenu.classList.remove("show");
+    modal_add_treing.classList.add("show");
+    document.getElementById("modal_saves").textContent = "Изменить"
+    
+    
+
+}
         
         if (tg) {
             tg.ready();
@@ -662,6 +676,7 @@ document.getElementById("delete_treing").onclick = async function delete_treing(
             async function SendPass() {
                 
     if (!tg || !tg.initData) return;
+    if (!isediting) {
     const res = await fetch(API + "/add_tr", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
@@ -681,6 +696,28 @@ document.getElementById("delete_treing").onclick = async function delete_treing(
         tr_show()
     }
 }
+if (isediting) {
+        const res5 = await fetch(API + "/change_treing", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            initData: tg.initData,
+            treing_id: selectedTrainingId,
+            type: type_train,
+            name: name_train,
+            time: time_train,
+            data: date_train,
+            exercises: exercises_train
+        })
+    });
+    data5 = await res5.json()
+    if (data5.ok) {
+        modal_add_treing.classList.remove("show");
+        day_btn_inf(id_day)
+    }
+    }
+}
+
 
 
 SendPass();
