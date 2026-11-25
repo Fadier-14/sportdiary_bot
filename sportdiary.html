@@ -554,6 +554,8 @@ document.getElementById("delete_treing").onclick = async function delete_treing(
             document.getElementById("change").classList.remove("show");
             day_btn_inf(id_day);
         }
+        tr_show()
+        updateMounth()
 }
         async function tr_show() {
             if (!tg || !tg.initData) return;
